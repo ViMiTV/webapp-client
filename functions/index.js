@@ -1,10 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-const serviceAccount = require('../vimi-tv-firebase-adminsdk-x6y1g-1840ceaa86.json');
-
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.applicationDefault(),
     databaseURL: 'https://vimi-tv.firebaseio.com',
 });
 
@@ -14,9 +12,6 @@ const PLAYERS_COLLECTION = 'players';
 const ROOMS_COLLECTION = 'rooms';
 const MAX_CAPACITY = 6;
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
 exports.helloBobo = functions.https.onRequest((request, response) =>
     response.send('hello bobo :)')
 );
