@@ -13,4 +13,4 @@ export const WIDTHS = {
     WIDTH_12: 12
 };
 
-export const TEST = 1;
+export const BASE_URL = 'https://us-central1-vimi-tv.cloudfunctions.net/';

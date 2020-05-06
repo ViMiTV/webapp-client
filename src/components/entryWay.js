@@ -6,10 +6,17 @@ import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import './entryWay.css';
-import { WIDTHS } from '../constants';
+import { WIDTHS, BASE_URL } from '../constants';
 
-const handleCreateRoomOnClick = username => console.log(`create room for ${username}`);
-const handleJoinRoomOnClick = username => console.log(`join room as ${username}`);
+const handleCreateRoomOnClick = (username) => {
+    console.log(`create room for ${username}`);
+    fetch(`${BASE_URL}createRoom?username=${username}`).then(
+        (res) => console.log(res),
+        (error) => console.log(error)
+    );
+};
+const handleJoinRoomOnClick = (username) =>
+    console.log(`join room as ${username}`);
 
 export const EntryWay = () => {
     const [username, setUsername] = useState('');
@@ -24,7 +31,7 @@ export const EntryWay = () => {
                                 placeholder='Enter your name'
                                 aria-label='Enter Your Name'
                                 aria-describedby='basic-addon2'
-                                onChange={e => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}
                             />
                         </InputGroup>
                     </Col>
