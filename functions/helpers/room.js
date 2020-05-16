@@ -8,11 +8,11 @@ const MAX_CAPACITY = 6;
 // from http://guid.us/GUID/JavaScript
 const generateRoomCode = () => (((1+Math.random())*0x10000)|0).toString(16).substring(1).toUpperCase();
 
-const createRoom = (maxCapacity, initialPlayerId) =>
+const createRoom = (db, maxCapacity, initialPlayerId) =>
     db.collection(ROOMS_COLLECTION).add({
         maxCapacity,
         players: admin.firestore.FieldValue.arrayUnion(initialPlayerId),
-        entryCode: generateRoomCode()
+        roomCode: generateRoomCode()
     });
 
 module.exports = {

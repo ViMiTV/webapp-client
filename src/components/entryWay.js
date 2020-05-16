@@ -11,10 +11,19 @@ import { WIDTHS, BASE_URL } from '../constants';
 const handleCreateRoomOnClick = (username) => {
     console.log(`create room for ${username}`);
     fetch(`${BASE_URL}createRoom?username=${username}`).then(
-        (res) => console.log(res),
+        (res) => {
+            console.log(res);
+            // useRoomCode()
+        },
         (error) => console.log(error)
     );
 };
+const useRoomCode = newRoomCode => {
+    const [roomCode, setRoomCode] = useState('');
+    setRoomCode(newRoomCode);
+
+    return roomCode;
+}
 const handleJoinRoomOnClick = (username) =>
     console.log(`join room as ${username}`);
 

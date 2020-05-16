@@ -4,7 +4,7 @@
 
 const PLAYERS_COLLECTION = 'players';
 
-const createPlayer = (username) =>
+const createPlayer = (db, username) =>
     db.collection(PLAYERS_COLLECTION).add({ username });
 
 module.exports = {
