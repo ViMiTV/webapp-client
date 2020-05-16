@@ -24,6 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
 
-.firebase/*
-
 vimi-tv-firebase-adminsdk-x6y1g-1840ceaa86.json
