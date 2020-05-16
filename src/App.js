@@ -1,15 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
-import PoseNet from "./components/PoseNet"
+import { EntryWay } from './components/entryWay';
 
 function App() {
-  return (
-    <div className="App">
-      <PoseNet />
-    </div>
-  );
+    return (
+        <div className='App'>
+            <EntryWay />
+        </div>
+    );
 }
 
 export default App;
