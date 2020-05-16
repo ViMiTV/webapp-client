@@ -56,10 +56,7 @@ exports.createRoom = functions.https.onRequest((request, response) => {
         } else {
             return createPlayer(username)
                 .then((playerRef) => createRoom(MAX_CAPACITY, playerRef.id))
-                .then((roomRef) => {
-                    response.send(`created room ${roomRef.id}`);
-                    return roomRef.id;
-                })
+                .then((roomRef) => response.send({roomId: roomRef.id}))
                 .catch((e) =>
                     console.log(`create player and room error: ${e}`)
                 );
@@ -77,15 +74,17 @@ exports.getRoomCode = functions.https.onRequest((request, response) => {
         if (!roomId) {
             response.send('Missing room id');
         } else {
-            return getRoomCodeById(roomId).then(doc => {
-                if (!doc.exists) {
-                    console.log(`room ${roomId} does not exist`);
-                } else {
-                    console.log(`entrycode: ${doc.data().entryCode}`);
-                    return doc.data().entryCode;
-                }
-            })
-            .catch((e) => console.log(`Get room code by id error: ${e}`));
+            return getRoomCodeById(roomId)
+                .then(doc => {
+                    if (!doc.exists) {
+                        console.log(`room ${roomId} does not exist`);
+                    } else {
+                        console.log(`entrycode: ${doc.data().roomCode}`);
+                        response.send({roomCode: doc.data().roomCode});
+                    }
+                    return;
+                })
+                .catch((e) => console.log(`Get room code by id error: ${e}`));
         }
     } catch (e) {
         response.send(`getRoomCode error: ${e}`);
