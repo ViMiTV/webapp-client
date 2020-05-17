@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,7 @@ class Entry extends Component {
     state = {
         roomCode: '',
         username: '',
+        disableButtons: true,
     };
 
     handleCreateRoomOnClick = (username) =>
@@ -28,8 +29,20 @@ class Entry extends Component {
             .then((res) => this.setState({ roomCode: res.roomCode }))
             .catch((error) => console.log(error));
 
-    handleJoinRoomOnClick = (username) =>
+    handleJoinRoomOnClick = (username) => {
         console.log(`join room as ${username}`);
+    };
+
+    handleUsernameOnChange = (e) => {
+        const username = e.target.value;
+        this.setState({ username: e.target.value, disableButtons: false });
+
+        if (!username) {
+            this.setState({ disableButtons: true });
+        } else {
+            this.setState({ disableButtons: false });
+        }
+    };
 
     render() {
         return (
@@ -39,14 +52,12 @@ class Entry extends Component {
                         <Col xs={WIDTHS.WIDTH_4}>
                             <InputGroup>
                                 <FormControl
+                                    required
+                                    type='text'
                                     placeholder='Enter your name'
                                     aria-label='Enter Your Name'
                                     aria-describedby='basic-addon2'
-                                    onChange={(e) =>
-                                        this.setState({
-                                            username: e.target.value,
-                                        })
-                                    }
+                                    onChange={this.handleUsernameOnChange}
                                 />
                             </InputGroup>
                         </Col>
@@ -56,6 +67,7 @@ class Entry extends Component {
                         <Col md={{ offset: WIDTHS.WIDTH_1 }}>
                             <Button
                                 variant='outline-info'
+                                disabled={this.state.disableButtons}
                                 onClick={() =>
                                     this.handleCreateRoomOnClick(
                                         this.state.username
@@ -66,8 +78,10 @@ class Entry extends Component {
                             </Button>{' '}
                             <Button
                                 variant='outline-info'
-                                onClick={() =>
+                                disabled={this.state.disableButtons}
+                                onClick={(e) =>
                                     this.handleJoinRoomOnClick(
+                                        e,
                                         this.state.username
                                     )
                                 }
