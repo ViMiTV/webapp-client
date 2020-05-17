@@ -112,36 +112,24 @@ exports.joinRoom = functions.https.onRequest((request, response) => {
         const username = request.query.username;
         console.log(roomCode);
         console.log(username);
-        
 
         if (!roomCode || !username) {
             response.send('Missing room code or username');
         } else {
-            // const roomId = getRoomIdByCode(roomCode);
             return getRoomIdByCode(roomCode)
                 .then((roomId) => addPlayerToRoom(username, roomId))
                 .then(() =>
                     response.send(
                         `added user ${username} with room code ${roomCode}`
-                    ))
+                    )
+                )
                 .catch((e) =>
                     response.send(
                         `add player ${username} to room ${roomId} error: ${e}`
                     )
                 );
-            // addPlayerToRoom(username, roomId)
-            //     .then(() =>
-            //         response.send(
-            //             `added ${username} with room code ${roomCode}`
-            //         )
-            //     )
-            //     .catch((e) =>
-            //         response.send(
-            //             `add player ${username} to room ${roomId} error: ${e}`
-            //         )
-            //     );
         }
     } catch (e) {
         response.send(`unexpected join room error: ${e}`);
     }
-})
+});
